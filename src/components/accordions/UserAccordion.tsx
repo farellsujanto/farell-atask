@@ -18,16 +18,6 @@ function UserAccordion({
     const [isLoading, setIsLoading] = useState(false);
     const [repoDatas, setRepoDatas] = useState<RepoData[]>([]);
 
-    useEffect(function openListener() {
-        if (isOpen && repoUrl && !repoDatas.length) {
-            fetchRepoDatas();
-        }
-    }, [
-        isOpen,
-        repoUrl,
-        repoDatas,
-    ]);
-
     const fetchRepoDatas = useCallback(async () => {
         if (repoUrl) {
             try {
@@ -45,6 +35,17 @@ function UserAccordion({
     const toggleOpenState = useCallback(() => {
         setIsOpen(isOpen => !isOpen);
     }, []);
+
+    useEffect(function openListener() {
+        if (isOpen && repoUrl && !repoDatas.length) {
+            fetchRepoDatas();
+        }
+    }, [
+        isOpen,
+        repoUrl,
+        repoDatas,
+        fetchRepoDatas,
+    ]);
 
     return (
         <>
@@ -71,7 +72,9 @@ function UserAccordion({
                         'Loading...'
                     ) : repoDatas?.map((repoData) => {
                         return (
-                            <div className='pt-5 pb-5 pl-3 pr-3 bg-gray-200 rounded mb-4 ml-4'>
+                            <div
+                                key={repoData.name}
+                                className='pt-5 pb-5 pl-3 pr-3 bg-gray-200 rounded mb-4 ml-4'>
                                 <div className='flex flex-row justify-start font-bold text-xl'>
                                     <h2 className='flex-1 text-left'>{repoData.name}</h2>
                                     <h2 className='mr-2'>{repoData.stargazers_count}</h2>

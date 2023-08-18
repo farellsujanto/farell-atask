@@ -14,7 +14,7 @@ function PrimaryInput({
 
     const handleTextChanged = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         onTextChanged(event.target.value);
-    }, []);
+    }, [onTextChanged]);
 
     return (
         <input
