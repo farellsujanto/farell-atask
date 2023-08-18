@@ -14,7 +14,7 @@ function PrimaryButton({
     return (
         <button
             className={`${isLoading ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 active:bg-blue-700'} text-white font-normal py-2 px-4 rounded `}
-            disabled
+            disabled={isLoading}
             onClick={onClick}>
             {
                 isLoading ? 'Loading...' : text
