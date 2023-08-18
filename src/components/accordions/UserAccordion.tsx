@@ -50,13 +50,13 @@ function UserAccordion({
     return (
         <>
             <button
-                className='p-3 bg-gray-200 font-bold mb-4 rounded text-lg'
+                className='p-3 bg-gray-200 font-bold mb-4 rounded'
                 onClick={toggleOpenState}>
                 <div className='flex flex-row'>
-                    <div className='flex-1 text-left'>
+                    <div className='flex-1 text-left text-lg'>
                         {username}
                     </div>
-                    <div>
+                    <div className='w-6 h-6'>
                         {isOpen ? (
                             <ChevronUp />
                         ) : (
@@ -75,9 +75,9 @@ function UserAccordion({
                             <div
                                 key={repoData.name}
                                 className='pt-5 pb-5 pl-3 pr-3 bg-gray-200 rounded mb-4 ml-4'>
-                                <div className='flex flex-row justify-start font-bold text-xl'>
-                                    <h2 className='flex-1 text-left'>{repoData.name}</h2>
-                                    <h2 className='mr-2'>{repoData.stargazers_count}</h2>
+                                <div className='flex flex-row justify-center align-middle'>
+                                    <h2 className='flex-1 text-left  font-bold text-xl'>{repoData.name}</h2>
+                                    <h2 className='mr-2 font-bold text-xl'>{repoData.stargazers_count}</h2>
                                     <StarFilled />
                                 </div>
                                 <p className='mt-1'>
