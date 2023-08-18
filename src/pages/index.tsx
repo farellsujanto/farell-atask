@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import UserAccordion from 'src/components/accordions/UserAccordion';
 import PrimaryButton from 'src/components/buttons/PrimaryButton';
 import PrimaryInput from 'src/components/inputs/PrimaryInput';
 import UserSearchData from 'src/interfaces/UserSearchData';
@@ -13,12 +14,15 @@ export default function Home() {
   const [users, setUsers] = useState<UserSearchData[]>([]);
 
   const onSearchButtonPressed = useCallback(async () => {
-    setLastSearchedUsername(username);
-    setIsLoading(true);
-
-    const res = await fetchApi<UserSearchResponse>(`https://api.github.com/search/users?per_page=5&q=${username}`);
-    setUsers([...res.items]);
-
+    try {
+      setLastSearchedUsername(username);
+      setIsLoading(true);
+      const res = await fetchApi<UserSearchResponse>(`https://api.github.com/search/users?per_page=5&q=${username}`);
+      setUsers([...res.items]);
+    } catch (e) {
+      window.alert(e);
+      throw `Error when fetching API: ${e}`;
+    }
     setIsLoading(false);
   }, [username]);
 
@@ -40,10 +44,19 @@ export default function Home() {
 
         <div className='h-4' />
         {!!lastSearchedUsername && (
-          <p>Showing users for "{lastSearchedUsername}"</p>
+          <p>Showing users for &quot;{lastSearchedUsername}&quot;</p>
         )}
-      </div>
+        <div className='h-4' />
 
+        {users?.map((user) => {
+          return (
+            <UserAccordion
+              key={user.login}
+              username={user.login}
+              repoUrl={user.repos_url} />
+          );
+        })}
+      </div>
     </main>
   );
 }

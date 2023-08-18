@@ -5,7 +5,7 @@ export async function fetchApi<T>(
     try {
         const headers = new Headers();
         // TODO: Put in .env
-        headers.append('Authorization', 'Bearer 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');
+        headers.append('Authorization', `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`);
 
         const res = await fetch(url, {
             headers: headers,
@@ -14,6 +14,7 @@ export async function fetchApi<T>(
 
         return json;
     } catch (e) {
+        window.alert(e);
         throw `Error when fetching API: ${e}`;
     }
 }
