@@ -4,7 +4,6 @@ export async function fetchApi<T>(
 ): Promise<T> {
     try {
         const headers = new Headers();
-        // TODO: Put in .env
         headers.append('Authorization', `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN}`);
 
         const res = await fetch(url, {
